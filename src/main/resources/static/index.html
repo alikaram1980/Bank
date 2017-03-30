@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Bank</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"
+	rel="stylesheet" />
+<link rel="stylesheet" type="text/css" href="css/myStyle.css" />
+</head>
+<body ng-app="myBankApp" ng-controller="myBankConroller">
+
+	<div class="col-md-6 col-sm-12 col-xs-12">
+
+		<div class="panel panel-info  spacer">
+			<div class="panel-heading">Account</div>
+			<div class="panel-body">
+				<form>
+
+					<div class="form-group">
+						<label>Code Account</label> <input type="text"
+							ng-model="accountCode">
+
+						<button ng-click="loadAccount()" class="btn btn-primary">Load</button>
+
+					</div>
+
+
+				</form>
+			</div>
+
+
+		</div>
+
+	</div>
+	<div ng-if="account">
+		<div class="col-md-6 col-sm-12 col-xs-12">
+			<div class="panel panel-info spacer">
+				<div class="panel-heading">Account Statement</div>
+				<div class="panel-body">
+
+					<div class="form-group">
+						<label>Balance:</label> <label>{{account.balance}}</label>
+					</div>
+
+					<div class="form-group">
+						<label>Date Of Creation:</label> <label>{{account.creationDate|date:'yyyy-MM-dd
+							HH:mm:ss'}}</label>
+					</div>
+
+					<div ng-if="account.rate">
+						<label>Rate:</label> <label>{{account.rate}}</label>
+					</div>
+
+
+					<div ng-if="account.discovered">
+						<label>discovered:</label> <label>{{account.discovered}}</label>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+
+
+
+		<div class="col-md-6 col-sm-12 col-xs-12">
+
+			<div class="panel panel-info spacer">
+				<div class="panel-heading">Operations</div>
+				<div class="panel-body"></div>
+				<form>
+					<div class="form-group">
+						<label>Payment:</label> <input type="radio"
+							ng-model="operation.type" value="payment" /> <label>Withdraw:</label>
+						<input type="radio" ng-model="operation.type" value="withdraw" />
+
+
+					</div>
+
+					<div class="form-group">
+						<label>Amount:</label> <input type="text"
+							ng-model="operation.amount" />
+					</div>
+					<div>
+						<button ng-click="saveOperation()" class="btn btn-primary">Save</button>
+
+					</div>
+				</form>
+
+			</div>
+
+
+		</div>
+
+		<div class="col-md-6 col-sm-12 col-xs-12">
+			<div class="panel panel-info spacer">
+				<div class="panel-heading">Account Operation</div>
+
+				<div class="panel-body">
+
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>number</th>
+								<th>Date</th>
+								<th>Amount</th>
+								<th>Type</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="op in pageOperations.operations">
+								<td>{{op.numberOperation}}</td>
+								<td>{{op.dateOperation|date:'yyyy-MM-dd
+							HH:mm:ss'}}</td>
+								<td>{{op.amount}}</td>
+								<td>{{op.type}}</td>
+						</tbody>
+					</table>
+				</div>
+				<div class="container spacer">
+			<ul class="nav nav-pills">
+				<li class="clickable" ng-class="{active:$index==pageCurrent}"ng-repeat="p in pages track by $index">
+				
+				<a ng-click="goToPage($index)">{{$index}}</a>
+				
+				
+				</li>
+			</ul>
+
+		</div>
+			</div>
+		</div>
+		
+
+		<script
+			src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.4/angular.js"></script>
+
+
+		<script
+			src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.14/angular-ui-router.js"></script>
+		<script
+			src="//unpkg.com/angular-ui-router/release/angular-ui-router.min.js">
+			
+		</script>
+		<script type="text/javascript" src="js/myApp.js"></script>
+</body>
+
+</html>
